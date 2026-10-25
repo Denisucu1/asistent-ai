@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recepție AI Kineto — Asistent Virtual 24/7 pentru Cabinete de Fizioterapie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #030814;
+    --card-bg: rgba(9, 21, 46, 0.75);
+    --card-border: rgba(56, 189, 248, 0.25);
+    --accent-glow: #38BDF8;
+    --accent-blue: #0284C7;
+    --text-primary: #F0F9FF;
+    --text-secondary: #BAE6FD;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg-dark); color: var(--text-primary); font-family: var(--font-body); min-height: 100vh; overflow-x: hidden; position: relative; padding-bottom: 80px; }
+  .mesh-glow-1 { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(2, 132, 199, 0.05) 60%, transparent 80%); filter: blur(140px); pointer-events: none; z-index: 0; }
+  .mesh-glow-2 { position: fixed; bottom: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%); filter: blur(120px); pointer-events: none; z-index: 0; }
+  header { position: relative; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; border-bottom: 1px solid rgba(255, 255, 255, 0.07); backdrop-filter: blur(16px); background: rgba(3, 8, 20, 0.7); }
+  .brand { font-family: var(--font-heading); font-size: 21px; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 10px; }
+  .brand-badge { background: rgba(56, 189, 248, 0.15); color: #38BDF8; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
+  .whatsapp-header-btn { background: linear-gradient(135deg, #38BDF8, #0284C7); color: #030814; padding: 11px 22px; border-radius: 12px; font-weight: 800; font-size: 13.5px; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 30px rgba(56, 189, 248, 0.35); transition: all 0.25s; }
+  .whatsapp-header-btn:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(56, 189, 248, 0.55); }
+  .hero-container { position: relative; z-index: 10; max-width: 1260px; margin: 50px auto 0; padding: 0 24px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 50px; align-items: center; }
+  @media (max-width: 980px) { .hero-container { grid-template-columns: 1fr; margin-top: 24px; } }
+  .pill-tag { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 30px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); font-size: 12px; font-weight: 700; color: #38BDF8; margin-bottom: 22px; }
+  .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: #38BDF8; box-shadow: 0 0 10px #38BDF8; }
+  h1 { font-family: var(--font-heading); font-size: 50px; line-height: 1.12; font-weight: 800; margin-bottom: 22px; }
+  @media (max-width: 600px) { h1 { font-size: 36px; } }
+  .gradient-text { background: linear-gradient(135deg, #FFFFFF 30%, #38BDF8 75%, #0284C7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  p.subtitle { font-size: 17px; line-height: 1.65; color: #7DD3FC; margin-bottom: 34px; }
+  .bento-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+  .bento-item { background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px 20px; backdrop-filter: blur(12px); }
+  .bento-item b { display: block; font-size: 22px; font-family: var(--font-heading); color: #38BDF8; margin-bottom: 4px; font-weight: 800; }
+  .bento-item span { font-size: 13px; color: #BAE6FD; line-height: 1.45; display: block; }
+  
+  .phone-mockup-wrapper { position: relative; max-width: 420px; width: 100%; margin: 0 auto; }
+  .iphone-frame { background: #07152B; border-radius: 46px; border: 4px solid #142F57; box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.9), 0 0 45px rgba(56, 189, 248, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.15); overflow: hidden; height: 610px; display: flex; flex-direction: column; position: relative; }
+  .dynamic-island { width: 100px; height: 24px; background: #000000; border-radius: 20px; margin: 8px auto 0; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; z-index: 30; }
+  .island-cam { width: 8px; height: 8px; border-radius: 50%; background: #0c1a30; }
+  .island-sensor { width: 6px; height: 6px; border-radius: 50%; background: #0369a1; }
+  
+  .phone-chat-top { padding: 12px 18px; background: rgba(11, 26, 56, 0.9); border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; }
+  .phone-profile { display: flex; align-items: center; gap: 10px; }
+  .avatar-circle { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #38BDF8, #0284C7); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+  .online-indicator { font-size: 11px; color: #38BDF8; display: flex; align-items: center; gap: 5px; font-weight: 600; }
+  
+  .chat-feed { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #050E1F; }
+  .msg-bubble { max-width: 84%; padding: 11px 15px; border-radius: 16px; font-size: 13.5px; line-height: 1.5; }
+  .msg-bubble.bot { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.09); align-self: flex-start; border-bottom-left-radius: 4px; color: #F0F9FF; }
+  .msg-bubble.user { background: linear-gradient(135deg, #38BDF8, #0284C7); color: #030814; font-weight: 700; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); }
+  
+  .quick-chips-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .quick-chip-btn { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); color: #BAE6FD; padding: 6px 11px; border-radius: 18px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .quick-chip-btn:hover { background: linear-gradient(135deg, #38BDF8, #0284C7); color: #030814; transform: translateY(-2px); }
+  
+  .typing-ind { display: flex; gap: 4px; padding: 10px 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; align-self: flex-start; }
+  .typing-ind span { width: 5px; height: 5px; border-radius: 50%; background: #38BDF8; animation: bounce 1.2s infinite ease-in-out; }
+  .typing-ind span:nth-child(2) { animation-delay: 0.15s; }
+  .typing-ind span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+  
+  .lead-toast { background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(2, 132, 199, 0.15)); border: 1px solid #38BDF8; color: #BAE6FD; padding: 10px 14px; border-radius: 12px; font-size: 12.5px; display: flex; align-items: center; gap: 8px; box-shadow: 0 0 20px rgba(56, 189, 248, 0.25); }
+  .chat-bottom-input { padding: 12px 14px; background: rgba(11, 26, 56, 0.98); border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 8px; }
+  .chat-bottom-input input { flex: 1; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; padding: 10px 14px; color: #FFFFFF; font-family: inherit; font-size: 13px; outline: none; }
+  .chat-bottom-input input:focus { border-color: #38BDF8; background: rgba(255, 255, 255, 0.09); }
+  .send-action-btn { background: linear-gradient(135deg, #38BDF8, #0284C7); color: #030814; border: none; border-radius: 12px; padding: 0 16px; font-weight: 800; font-size: 13px; cursor: pointer; }
+
+  .comparison-section { max-width: 1260px; margin: 60px auto 0; padding: 0 24px; }
+  .comp-title { text-align: center; margin-bottom: 30px; font-family: var(--font-heading); font-size: 34px; font-weight: 800; }
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 760px) { .comp-grid { grid-template-columns: 1fr; } }
+  .comp-card { border-radius: 20px; padding: 30px; border: 1px solid rgba(255, 255, 255, 0.08); }
+  .comp-card.bad { background: rgba(239, 68, 68, 0.03); border-color: rgba(239, 68, 68, 0.2); }
+  .comp-card.good { background: rgba(56, 189, 248, 0.04); border-color: rgba(56, 189, 248, 0.35); box-shadow: 0 0 30px rgba(56, 189, 248, 0.1); }
+  .comp-card h3 { font-size: 21px; font-family: var(--font-heading); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .timeline-step { display: flex; gap: 14px; margin-bottom: 16px; font-size: 14px; line-height: 1.5; color: #BAE6FD; }
+  .timeline-step b { color: var(--text-primary); }
+
+  .reception-panel { max-width: 1260px; margin: 40px auto 0; padding: 24px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 18px; }
+  .reception-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .reception-badge { background: #38BDF8; color: #030814; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 20px; }
+  .leads-flow { display: flex; flex-direction: column; gap: 10px; }
+  .lead-entry { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); padding: 12px 18px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; }
+  .lead-num { font-family: 'JetBrains Mono', monospace; color: #38BDF8; font-weight: 600; }
+  .floating-wa { position: fixed; bottom: 24px; left: 24px; z-index: 99999; background: #25D366; color: #FFFFFF; padding: 12px 20px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); }
+</style>
+</head>
+<body>
+  <div class="mesh-glow-1"></div>
+  <div class="mesh-glow-2"></div>
+  <header>
+    <div class="brand">🏃‍♂️ KINETO AI <span>· Recuperare Medicală</span></div>
+    <div class="brand-badge">Sistem 24/7 pentru Cabinete Fizioterapie</div>
+    <a href="https://wa.me/40775613269?text=Buna!%20Am%20testat%20asistentul%20AI%20si%20as%20vrea%20sa%20activez%20perioada%20gratuita%20de%207%20zile%20pentru%20cabinetul%20meu%20de%20kineto." target="_blank" class="whatsapp-header-btn">
+      <span>💬 Activează 7 Zile Gratuit</span>
+    </a>
+  </header>
+  <div class="hero-container">
+    <div>
+      <div class="pill-tag"><span class="pill-dot"></span> Preluare automată a pacienților 24/7</div>
+      <h1>Nu mai pierde pacienți cu dureri de spate când <span class="gradient-text">Ești în Tratament</span>.</h1>
+      <p class="subtitle">Kinetoterapeuții sunt 100% ocupați în sala de recuperare și nu pot răspunde la telefon. Asistentul nostru virtual răspunde la prețuri (ședințe, pachete 10 ședințe) și preia numărul pacientului în 10 secunde.</p>
+      <div class="bento-mini">
+        <div class="bento-item"><b>Zero Întreruperi</b><span>Te concentrezi pe recuperarea pacientului fără să suni încontinuu.</span></div>
+        <div class="bento-item"><b>+15 - 30 Pachete</b><span>Programări noi pentru pachete de 10 ședințe (1.100 lei+).</span></div>
+        <div class="bento-item"><b>Triaj Afectiuni</b><span>Identifică hernia de disc, durerile cervicale sau post-operator.</span></div>
+        <div class="bento-item"><b>Gata în 2 Minute</b><span>Se instalează direct pe site sau pe link în bio pe rețele.</span></div>
+      </div>
+    </div>
+    <div class="phone-mockup-wrapper">
+      <div class="iphone-frame">
+        <div class="dynamic-island"><div class="island-cam"></div><div class="island-sensor"></div></div>
+        <div class="phone-chat-top">
+          <div class="phone-profile">
+            <div class="avatar-circle">🏃‍♂️</div>
+            <div>
+              <div style="font-weight: 800; font-size: 13.5px; color: #fff;">Cabinet Kineto & Recuperare</div>
+              <div class="online-indicator"><span style="width:6px;height:6px;border-radius:50%;background:#38BDF8;"></span> Online · Asistent AI</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-feed" id="chatFeed">
+          <div class="msg-bubble bot">Bună! Te ajut cu drag cu detalii despre ședințele de <b>kinetoterapie, masaj sau pachete de recuperare</b>. Ce problemă sau durere te supără? 🏃‍♂️</div>
+          <div class="quick-chips-group" id="chipsBox">
+            <div class="quick-chip-btn" onclick="sendChip('Cât costă o ședință de kinetoterapie?')">🏃‍♂️ Cât e o ședință?</div>
+            <div class="quick-chip-btn" onclick="sendChip('Preț pachet 10 ședințe?')">📦 Pachet 10 ședințe?</div>
+            <div class="quick-chip-btn" onclick="sendChip('Mă doare spatele foarte rău')">🚨 Mă doare spatele</div>
+            <div class="quick-chip-btn" onclick="sendChip('Unde aveți cabinetul?')">📍 Unde vă găsesc?</div>
+          </div>
+        </div>
+        <div class="chat-bottom-input">
+          <input type="text" id="chatInput" placeholder="Întreabă de prețuri sau lasă un număr..." />
+          <button class="send-action-btn" id="sendBtn" onclick="handleSend()">Trimite</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reception-panel">
+    <div class="reception-header">
+      <div style="font-weight: 700; font-size: 16px;">📋 Panoul Cabinetului: Pacienți preluați automat</div>
+      <span class="reception-badge" id="leadsCounterBadge">0 Pacienți Înregistrați</span>
+    </div>
+    <div class="leads-flow" id="leadsContainer">
+      <div style="color: #64748B; font-size: 13px; text-align: center; padding: 10px;">💡 Scrie <i>„Mă doare spatele, mă numesc Radu, tel: 0755 123 456”</i> pentru a testa!</div>
+    </div>
+  </div>
+  <a href="https://wa.me/40775613269?text=Buna!%20Am%20testat%20asistentul%20AI%20si%20as%20vrea%20sa%20activez%20perioada%20gratuita%20de%207%20zile." target="_blank" class="floating-wa">💬 Vorbește direct cu Denis (WhatsApp)</a>
+<script>
+const API_URL = 'http://127.0.0.1:8000';
+const clinicId = 'fizioterapie';
+let chatHistory = [];
+function appendMsg(t, r) { const f = document.getElementById('chatFeed'); const d = document.createElement('div'); d.className = 'msg-bubble ' + r; d.innerHTML = t.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br/>'); f.appendChild(d); f.scrollTop = f.scrollHeight; return d; }
+function showTypingAnim() { const f = document.getElementById('chatFeed'); const d = document.createElement('div'); d.className = 'typing-ind'; d.id = 'typingBubble'; d.innerHTML = '<span></span><span></span><span></span>'; f.appendChild(d); f.scrollTop = f.scrollHeight; }
+function hideTypingAnim() { const e = document.getElementById('typingBubble'); if(e) e.remove(); }
+function sendChip(t) { document.getElementById('chatInput').value = t; handleSend(); }
+function extractPhoneClient(t) { const c = t.replace(/[\s\.\-\/]/g, ''); const m = c.match(/(?:(?:\+40|0040)?0?7\d{8})/); return m ? m[0] : null; }
+function extractNameClient(t) { const m = t.match(/(?:mă numesc|ma numesc|sunt)\s+([A-ZĂÎÂȘȚa-zăîâșț\s]{3,30})/i) || t.match(/^([A-ZĂÎÂȘȚ][a-zăîâșț]+\s+[A-ZĂÎÂȘȚ][a-zăîâșț]+)/); return m ? m[1].trim() : 'Pacient'; }
+
+function runClientRuleEngine(msg) {
+  const t = msg.toLowerCase();
+  if (/sedinta|ședință|kineto|cat costa|cât costă|pret|preț/.test(t) && !/pachet/.test(t)) {
+    return 'O ședință individuală 1-la-1 de kinetoterapie (50 min) este **130 lei**. Lucrăm personalizat pe diagnosticul tău. Vrei să începem cu o evaluare inițială?';
+  }
+  if (/pachet|10/.test(t)) {
+    return 'Pachetul de 10 ședințe de kinetoterapie este **1.100 lei** (ai reducere inclusă). Este cel mai recomandat pentru rezultate de durată la dureri de spate sau hernie. Vrei să te trecem pe listă?';
+  }
+  if (/doare|spate|hernie|cervicala|rupt|operatie/.test(t)) {
+    return 'Înțelegem perfect disconfortul! La noi începem mereu cu o evaluare posturală atentă ca să nu forțăm zona afectată. Lasă-mi un număr de telefon și te sună terapeutul scurt să discutați despre simptome.';
+  }
+  if (/programare|programez|loc|cand|când/.test(t)) {
+    return 'Cu mare drag! În ce zi sau parte a zilei ți-ar fi mai comod? Lasă-mi te rog un nume și un număr de telefon și te contactează terapeutul să stabiliți prima oră liberă.';
+  }
+  if (/unde|adresa|locatie/.test(t)) {
+    return 'Ne găsești pe **Str. Aviatorilor nr. 14**. Avem parcare chiar lângă cabinet. Te așteptăm!';
+  }
+  return 'Bună! Te ajut cu drag cu orice informație despre ședințele de kineto, masaj terapeutic sau programări. Ce durere sau problemă ai vrea să rezolvăm?';
+}
+
+async function handleSend() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  appendMsg(text, 'user');
+  chatHistory.push({ role: 'user', text: text });
+  input.value = '';
+  document.getElementById('sendBtn').disabled = true;
+  showTypingAnim();
+  const chips = document.getElementById('chipsBox');
+  if(chips) chips.style.display = 'none';
+
+  let replyText = '';
+  let phone = extractPhoneClient(text);
+  let name = extractNameClient(text);
+  let leadCaptured = false;
+
+  if (phone) {
+    leadCaptured = true;
+    const leads = JSON.parse(localStorage.getItem('saved_leads_' + clinicId) || '[]');
+    leads.unshift({ name: name, phone: phone, timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), clinic_id: clinicId });
+    localStorage.setItem('saved_leads_' + clinicId, JSON.stringify(leads));
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
+    const res = await fetch(`${API_URL}/api/chat`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text, clinic_id: clinicId, history: chatHistory }), signal: controller.signal });
+    clearTimeout(timeoutId);
+    const data = await res.json();
+    replyText = data.reply;
+    if(data.lead_captured) { leadCaptured = true; phone = data.phone_detected; }
+  } catch(e) {
+    await new Promise(r => setTimeout(r, 600));
+    if (leadCaptured) {
+      replyText = `Mulțumim din suflet${name ? ', ' + name : ''}! Am notat numărul tău (${phone}). Te contactează terapeutul nostru în cel mai scurt timp pentru a stabili ora de evaluare. Sănătate multă!`;
+    } else {
+      replyText = runClientRuleEngine(text);
+    }
+  }
+
+  hideTypingAnim();
+  appendMsg(replyText, 'bot');
+  chatHistory.push({ role: 'assistant', text: replyText });
+  if(leadCaptured) {
+    const toast = document.createElement('div');
+    toast.className = 'lead-toast';
+    toast.innerHTML = `✅ <b>Solicitare Preluată!</b> Numărul <b>${phone}</b> a fost trimis kinetoterapeutului.`;
+    document.getElementById('chatFeed').appendChild(toast);
+  }
+  loadLeadsStream();
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+
+async function loadLeadsStream() {
+  let leads = [];
+  try {
+    const res = await fetch(`${API_URL}/api/leads`);
+    const serverLeads = await res.json();
+    leads = serverLeads.filter(l => l.clinic_id === clinicId);
+  } catch(e) {}
+  const localLeads = JSON.parse(localStorage.getItem('saved_leads_' + clinicId) || '[]');
+  leads = [...localLeads, ...leads];
+  document.getElementById('leadsCounterBadge').textContent = `${leads.length} Pacienți Înregistrați`;
+  const box = document.getElementById('leadsContainer');
+  if(leads.length > 0) {
+    box.innerHTML = leads.slice(0, 8).map(l => `
+      <div class="lead-entry">
+        <div><b>${l.name}</b> · <span style="color:#7DD3FC;">Cerere recuperare kineto</span></div>
+        <div><span class="lead-num">📞 ${l.phone}</span> <span style="color:#64748B; font-size:11px; margin-left:10px;">${l.timestamp}</span></div>
+      </div>
+    `).join('');
+  }
+}
+document.getElementById('chatInput').addEventListener('keydown', (e) => { if(e.key === 'Enter') handleSend(); });
+loadLeadsStream();
+</script>
+</body>
+</html>

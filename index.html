@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asistent AI Recepție 24/7 — Portofoliu Showcase</title>
+<title>Asistent AI Recepție 24/7 — Portofoliu Showcase 5 Nișe</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 60px 20px 80px;
     position: relative;
     overflow-x: hidden;
   }
@@ -27,18 +27,20 @@
     top: -20%;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(168, 85, 247, 0.1) 50%, transparent 80%);
-    filter: blur(120px);
+    width: 900px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.1) 40%, rgba(168, 85, 247, 0.08) 70%, transparent 85%);
+    filter: blur(140px);
     pointer-events: none;
   }
-  .container { max-width: 1080px; width: 100%; position: relative; z-index: 10; text-align: center; }
-  .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 30px; font-size: 12px; font-weight: 700; margin-bottom: 20px; }
-  h1 { font-family: 'Outfit', sans-serif; font-size: 46px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.15; }
-  .sub { font-size: 17px; color: #94A3B8; max-width: 640px; margin: 0 auto 50px; line-height: 1.6; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; }
-  @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+  .container { max-width: 1160px; width: 100%; position: relative; z-index: 10; text-align: center; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 7px 16px; border-radius: 30px; font-size: 12px; font-weight: 700; margin-bottom: 22px; }
+  h1 { font-family: 'Outfit', sans-serif; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 16px; line-height: 1.15; }
+  @media (max-width: 640px) { h1 { font-size: 34px; } }
+  .gradient-text { background: linear-gradient(135deg, #FFFFFF 30%, #38BDF8 70%, #818CF8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .sub { font-size: 17px; color: #94A3B8; max-width: 720px; margin: 0 auto 48px; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 24px; text-align: left; }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
   .card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -51,16 +53,30 @@
     flex-direction: column;
     justify-content: space-between;
     backdrop-filter: blur(14px);
+    position: relative;
+    overflow: hidden;
   }
   .card:hover { transform: translateY(-6px); }
   .card.dental:hover { border-color: #10B981; box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.25); }
   .card.beauty:hover { border-color: #A855F7; box-shadow: 0 20px 40px -10px rgba(168, 85, 247, 0.25); }
   .card.barber:hover { border-color: #F59E0B; box-shadow: 0 20px 40px -10px rgba(245, 158, 11, 0.25); }
-  .card-icon { font-size: 38px; margin-bottom: 20px; }
+  .card.physio:hover { border-color: #38BDF8; box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.25); }
+  .card.vet:hover { border-color: #F97316; box-shadow: 0 20px 40px -10px rgba(249, 115, 22, 0.25); }
+  
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+  .card-icon { font-size: 38px; }
+  .card-pill { font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 12px; letter-spacing: 0.04em; }
   .card-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
   .card h2 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
   .card p { font-size: 14px; color: #94A3B8; line-height: 1.55; margin-bottom: 24px; }
   .card-btn { font-size: 13.5px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+  
+  .footer-cta { margin-top: 50px; padding: 24px; border-radius: 20px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; gap: 20px; text-align: left; }
+  @media (max-width: 700px) { .footer-cta { flex-direction: column; text-align: center; } }
+  .footer-cta b { color: #FFF; font-size: 16px; display: block; margin-bottom: 4px; }
+  .footer-cta span { color: #94A3B8; font-size: 13px; }
+  .wa-btn { background: #25D366; color: #000; font-weight: 800; font-size: 13px; padding: 12px 22px; border-radius: 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: 0.2s; }
+  .wa-btn:hover { background: #22c35e; transform: scale(1.02); }
 </style>
 </head>
 <body>
@@ -68,39 +84,90 @@
   <div class="glow"></div>
 
   <div class="container">
-    <div class="badge">🚀 SOLUȚII AUTOMATIZARE AI 2026</div>
-    <h1>Recepționera Digitală 24/7</h1>
-    <p class="sub">Alege industria pentru a testa asistentul virtual integrat într-un simulator interactiv de smartphone cu preluare live a programărilor.</p>
+    <div class="badge">🚀 SOLUȚII AUTOMATIZARE & RECEPȚIE AI 2026</div>
+    <h1>Recepționera Digitală <span class="gradient-text">24/7</span></h1>
+    <p class="sub">5 Soluții dedicate pentru afaceri locale din România. Alege industria pentru a testa asistentul virtual integrat într-un simulator interactiv de smartphone cu preluare automată a programărilor.</p>
 
     <div class="grid">
+      <!-- 1. DENTAL -->
       <a href="stomatologie.html" class="card dental">
         <div>
-          <div class="card-icon">🦷</div>
-          <div class="card-tag" style="color: #34D399;">Medical & Sănătate</div>
-          <h2>Clinici Dentare</h2>
-          <p>Răspunde instant la tarife (detartraj, carii, albire), triază urgențele medicale și preia numerele de telefon ale pacienților.</p>
+          <div class="card-top">
+            <div class="card-icon">🦷</div>
+            <span class="card-pill" style="background: rgba(16,185,129,0.15); color: #34D399; border: 1px solid rgba(16,185,129,0.3);">Medical Dentar</span>
+          </div>
+          <div class="card-tag" style="color: #34D399;">Cabinet & Clinică Dentară</div>
+          <h2>Clinici Stomatologice</h2>
+          <p>Răspunde instant la tarife (detartraj, carii, fațete, albire), triază urgențele dureroase de dinți și salvează numărul pacientului direct.</p>
         </div>
         <div class="card-btn" style="color: #34D399;">Deschide Demo Interactiv →</div>
       </a>
 
+      <!-- 2. BEAUTY -->
       <a href="salon.html" class="card beauty">
         <div>
-          <div class="card-icon">💅</div>
-          <div class="card-tag" style="color: #E879F9;">Beauty & Spa</div>
-          <h2>Saloane Înfrumusețare</h2>
-          <p>Captează clientele care caută programări duminica sau la 23:00 pe Instagram pentru manichiură semi, balayage sau tuns.</p>
+          <div class="card-top">
+            <div class="card-icon">💅</div>
+            <span class="card-pill" style="background: rgba(168,85,247,0.15); color: #E879F9; border: 1px solid rgba(168,85,247,0.3);">Beauty & Spa</span>
+          </div>
+          <div class="card-tag" style="color: #E879F9;">Saloane Înfrumusețare</div>
+          <h2>Saloane de Cosmetică</h2>
+          <p>Captează clientele care caută programări duminica seara sau la 23:00 pe Instagram pentru manichiură semi, balayage, sprâncene sau masaj.</p>
         </div>
         <div class="card-btn" style="color: #E879F9;">Deschide Demo Interactiv →</div>
       </a>
 
+      <!-- 3. BARBER -->
       <a href="barbershop.html" class="card barber">
         <div>
-          <div class="card-icon">💈</div>
-          <div class="card-tag" style="color: #FBBF24;">Men's Grooming</div>
-          <h2>Barbershops & Frizerii</h2>
-          <p>Frizerul tunde liniștit fără să sune telefonul încontinuu. Asistentul explică pachetele VIP și reține scaunul în 10 secunde.</p>
+          <div class="card-top">
+            <div class="card-icon">💈</div>
+            <span class="card-pill" style="background: rgba(245,158,11,0.15); color: #FBBF24; border: 1px solid rgba(245,158,11,0.3);">Men's Grooming</span>
+          </div>
+          <div class="card-tag" style="color: #FBBF24;">Frizerii & Barbershop</div>
+          <h2>Barbershops Moderne</h2>
+          <p>Frizerul tunde fără să oprească mașina ca să răspundă la telefon. AI-ul explică pachetele (Fade + Barbă + Vapozon) și rezervă locul pe loc.</p>
         </div>
         <div class="card-btn" style="color: #FBBF24;">Deschide Demo Interactiv →</div>
+      </a>
+
+      <!-- 4. FIZIOTERAPIE / KINETO -->
+      <a href="fizioterapie.html" class="card physio">
+        <div>
+          <div class="card-top">
+            <div class="card-icon">🏃‍♂️</div>
+            <span class="card-pill" style="background: rgba(56,189,248,0.15); color: #38BDF8; border: 1px solid rgba(56,189,248,0.3);">Recuperare Medicală</span>
+          </div>
+          <div class="card-tag" style="color: #38BDF8;">Kinetoterapie & Fizioterapie</div>
+          <h2>Recuperare & Masaj</h2>
+          <p>Pacienții cu hernii de disc sau dureri articulare pun întrebări detaliate. AI-ul explică evaluarea posturală și reține numărul pentru apelul medicului.</p>
+        </div>
+        <div class="card-btn" style="color: #38BDF8;">Deschide Demo Interactiv →</div>
+      </a>
+
+      <!-- 5. VETERINAR -->
+      <a href="veterinar.html" class="card vet">
+        <div>
+          <div class="card-top">
+            <div class="card-icon">🐾</div>
+            <span class="card-pill" style="background: rgba(249,115,22,0.15); color: #FB923C; border: 1px solid rgba(249,115,22,0.3);">Sănătate Animală</span>
+          </div>
+          <div class="card-tag" style="color: #FB923C;">Cabinete Veterinare</div>
+          <h2>Clinici & Urgențe Vet</h2>
+          <p>Stăpânii de căței și pisici stresați primesc răspunsuri calde și imediate pentru vaccinări, deparazitări, carnete de sănătate și urgențe 24/7.</p>
+        </div>
+        <div class="card-btn" style="color: #FB923C;">Deschide Demo Interactiv →</div>
+      </a>
+    </div>
+
+    <!-- Direct CTA -->
+    <div class="footer-cta">
+      <div>
+        <b>Vrei un asistent configurat gratuit timp de 7 zile pe site-ul sau Instagram-ul tău?</b>
+        <span>Fără costuri inițiale, fără contract obligatoriu. Testezi rezultatele timp de 7 zile.</span>
+      </div>
+      <a href="https://wa.me/40775613269?text=Salut%20Denis!%20Am%20vazut%20demo-ul%20cu%20asistentul%20AI%20si%20as%20vrea%20sa-l%20testez%207%20zile%20gratuit." target="_blank" class="wa-btn">
+        💬 Discută cu Denis pe WhatsApp
       </a>
     </div>
   </div>
