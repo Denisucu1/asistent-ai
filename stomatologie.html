@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recepție AI Dentară — Demo Live pentru Clinici Stomatologice</title>
+<title>Recepție AI Dentară — Asistent Virtual 24/7 pentru Clinici Stomatologice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-dark: #030C0B;
-    --card-bg: rgba(10, 28, 25, 0.7);
-    --card-border: rgba(31, 111, 100, 0.25);
+    --bg-dark: #020807;
+    --card-bg: rgba(7, 20, 18, 0.75);
+    --card-border: rgba(16, 185, 129, 0.22);
     --teal-glow: #10B981;
     --teal-accent: #059669;
     --text-primary: #F8FAFC;
@@ -28,37 +28,49 @@
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    padding-bottom: 60px;
+    padding-bottom: 80px;
   }
 
-  /* Ambient Glow Background */
-  .ambient-glow {
+  /* Ambient Mesh Lighting */
+  .mesh-glow-1 {
     position: fixed;
-    top: -20%;
+    top: -150px;
     left: 50%;
     transform: translateX(-50%);
-    width: 800px;
+    width: 900px;
     height: 600px;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 50%, transparent 80%);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(5, 150, 105, 0.04) 60%, transparent 80%);
+    filter: blur(140px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .mesh-glow-2 {
+    position: fixed;
+    bottom: -100px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
     filter: blur(120px);
     pointer-events: none;
     z-index: 0;
   }
 
-  /* Header */
+  /* Navigation Bar */
   header {
     position: relative;
-    z-index: 10;
+    z-index: 50;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 8%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
+    padding: 20px 8%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    background: rgba(2, 8, 7, 0.7);
   }
   .brand {
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 800;
     color: #FFFFFF;
     display: flex;
@@ -67,44 +79,49 @@
     letter-spacing: -0.02em;
   }
   .brand-badge {
-    background: rgba(16, 185, 129, 0.15);
+    background: rgba(16, 185, 129, 0.12);
     color: #34D399;
     font-size: 11px;
     font-weight: 700;
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 20px;
-    border: 1px solid rgba(52, 211, 153, 0.3);
+    border: 1px solid rgba(52, 211, 153, 0.25);
   }
-  .header-cta {
-    background: #10B981;
-    color: #030C0B;
-    padding: 10px 20px;
-    border-radius: 10px;
-    font-weight: 700;
+  .whatsapp-header-btn {
+    background: linear-gradient(135deg, #10B981, #059669);
+    color: #020807;
+    padding: 11px 22px;
+    border-radius: 12px;
+    font-weight: 800;
     font-size: 13.5px;
     text-decoration: none;
-    box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
-    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.35);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .header-cta:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(16, 185, 129, 0.5); }
+  .whatsapp-header-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.55);
+  }
 
-  /* Hero Section with Split Interactive Layout */
+  /* Hero Section */
   .hero-container {
     position: relative;
     z-index: 10;
-    max-width: 1240px;
-    margin: 40px auto 0;
+    max-width: 1260px;
+    margin: 50px auto 0;
     padding: 0 24px;
     display: grid;
-    grid-template-columns: 1.05fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
     align-items: center;
   }
-  @media (max-width: 960px) {
-    .hero-container { grid-template-columns: 1fr; margin-top: 20px; }
+  @media (max-width: 980px) {
+    .hero-container { grid-template-columns: 1fr; margin-top: 24px; gap: 36px; }
   }
 
-  /* Left Side: Pitch */
   .pill-tag {
     display: inline-flex;
     align-items: center;
@@ -114,101 +131,135 @@
     background: rgba(16, 185, 129, 0.1);
     border: 1px solid rgba(16, 185, 129, 0.3);
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     color: #34D399;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    letter-spacing: 0.02em;
   }
-  .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: #34D399; box-shadow: 0 0 10px #34D399; }
-  
+  .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: #34D399; box-shadow: 0 0 10px #34D399; animation: pulse-green 2s infinite; }
+  @keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52,211,153, 0.6); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(52,211,153, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52,211,153, 0); }
+  }
+
   h1 {
     font-family: var(--font-heading);
-    font-size: 46px;
-    line-height: 1.15;
+    font-size: 50px;
+    line-height: 1.12;
     font-weight: 800;
     letter-spacing: -0.03em;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
   }
+  @media (max-width: 600px) { h1 { font-size: 36px; } }
+
   .gradient-text {
-    background: linear-gradient(135deg, #FFFFFF 30%, #34D399 100%);
+    background: linear-gradient(135deg, #FFFFFF 25%, #34D399 75%, #10B981 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   p.subtitle {
-    font-size: 16.5px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.65;
     color: var(--text-secondary);
-    margin-bottom: 30px;
+    margin-bottom: 34px;
   }
 
+  /* Bento Grid Stats */
   .bento-mini {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
   }
   .bento-item {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.025);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 14px;
-    padding: 16px 18px;
-    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 18px 20px;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s;
   }
-  .bento-item b { display: block; font-size: 20px; font-family: var(--font-heading); color: #34D399; margin-bottom: 4px; }
-  .bento-item span { font-size: 12.5px; color: var(--text-secondary); line-height: 1.4; display: block; }
+  .bento-item:hover { border-color: rgba(16, 185, 129, 0.4); }
+  .bento-item b { display: block; font-size: 22px; font-family: var(--font-heading); color: #34D399; margin-bottom: 4px; font-weight: 800; }
+  .bento-item span { font-size: 13px; color: var(--text-secondary); line-height: 1.45; display: block; }
 
-  /* Right Side: Glassmorphic Interactive Chat Showroom */
-  .chat-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(16, 185, 129, 0.1);
-    backdrop-filter: blur(20px);
+  /* Device Simulator / iPhone Frame */
+  .phone-mockup-wrapper {
+    position: relative;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .iphone-frame {
+    background: #091715;
+    border-radius: 46px;
+    border: 4px solid #1B3530;
+    box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.9), 0 0 45px rgba(16, 185, 129, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    height: 610px;
     display: flex;
     flex-direction: column;
-    height: 580px;
-    overflow: hidden;
     position: relative;
   }
-  .chat-top {
-    padding: 18px 22px;
-    background: rgba(10, 32, 28, 0.8);
+  .dynamic-island {
+    width: 100px;
+    height: 24px;
+    background: #000000;
+    border-radius: 20px;
+    margin: 8px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 30;
+  }
+  .island-cam { width: 8px; height: 8px; border-radius: 50%; background: #0c1c18; }
+  .island-sensor { width: 6px; height: 6px; border-radius: 50%; background: #064e3b; }
+
+  /* Chat Top inside Phone */
+  .phone-chat-top {
+    padding: 12px 18px;
+    background: rgba(10, 32, 28, 0.9);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  .chat-profile { display: flex; align-items: center; gap: 12px; }
-  .chat-avatar-icon {
-    width: 42px;
-    height: 42px;
+  .phone-profile { display: flex; align-items: center; gap: 10px; }
+  .avatar-circle {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background: linear-gradient(135deg, #10B981, #047857);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    font-size: 18px;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
   }
-  .chat-status-active { font-size: 12px; color: #34D399; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+  .online-indicator { font-size: 11px; color: #34D399; display: flex; align-items: center; gap: 5px; font-weight: 600; }
 
+  /* Message Feed */
   .chat-feed {
     flex: 1;
-    padding: 20px;
+    padding: 16px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
+    background: #051210;
   }
   .msg-bubble {
-    max-width: 82%;
-    padding: 12px 16px;
+    max-width: 84%;
+    padding: 11px 15px;
     border-radius: 16px;
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.5;
   }
   .msg-bubble.bot {
     background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     align-self: flex-start;
     border-bottom-left-radius: 4px;
     color: #F1F5F9;
@@ -221,85 +272,103 @@
     box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
   }
 
-  .quick-chips-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .quick-chips-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
   .quick-chip-btn {
     background: rgba(16, 185, 129, 0.12);
     border: 1px solid rgba(16, 185, 129, 0.3);
     color: #6EE7B7;
-    padding: 7px 12px;
-    border-radius: 20px;
-    font-size: 12.5px;
+    padding: 6px 11px;
+    border-radius: 18px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
   }
-  .quick-chip-btn:hover {
-    background: #10B981;
-    color: #030C0B;
-    transform: translateY(-2px);
-  }
+  .quick-chip-btn:hover { background: #10B981; color: #020807; transform: translateY(-2px); }
 
   .typing-ind {
-    display: flex; gap: 5px; padding: 12px 16px; background: rgba(255, 255, 255, 0.05);
+    display: flex; gap: 4px; padding: 10px 14px; background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; align-self: flex-start;
   }
-  .typing-ind span { width: 6px; height: 6px; border-radius: 50%; background: #34D399; animation: bounce 1.2s infinite ease-in-out; }
+  .typing-ind span { width: 5px; height: 5px; border-radius: 50%; background: #34D399; animation: bounce 1.2s infinite ease-in-out; }
   .typing-ind span:nth-child(2) { animation-delay: 0.15s; }
   .typing-ind span:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
 
   .lead-toast {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.22), rgba(5, 150, 105, 0.12));
     border: 1px solid #10B981;
     color: #6EE7B7;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-radius: 12px;
-    font-size: 13px;
+    font-size: 12.5px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    gap: 8px;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
   }
 
   .chat-bottom-input {
-    padding: 16px 20px;
-    background: rgba(10, 32, 28, 0.95);
+    padding: 12px 14px;
+    background: rgba(10, 32, 28, 0.98);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     display: flex;
-    gap: 10px;
+    gap: 8px;
   }
   .chat-bottom-input input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 12px;
-    padding: 13px 16px;
+    padding: 10px 14px;
     color: #FFFFFF;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13px;
     outline: none;
-    transition: all 0.2s;
   }
-  .chat-bottom-input input:focus {
-    border-color: #10B981;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
-  }
+  .chat-bottom-input input:focus { border-color: #10B981; background: rgba(255, 255, 255, 0.09); }
   .send-action-btn {
     background: #10B981;
-    color: #030C0B;
+    color: #020807;
     border: none;
     border-radius: 12px;
-    padding: 0 22px;
+    padding: 0 16px;
     font-weight: 700;
+    font-size: 13px;
     cursor: pointer;
-    transition: all 0.2s;
   }
-  .send-action-btn:hover { background: #34D399; transform: scale(1.02); }
 
-  /* Live Reception Ticker */
+  /* Comparison Section: Inainte vs Dupa */
+  .comparison-section {
+    max-width: 1260px;
+    margin: 60px auto 0;
+    padding: 0 24px;
+  }
+  .comp-title { text-align: center; margin-bottom: 30px; font-family: var(--font-heading); font-size: 32px; font-weight: 800; }
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 760px) { .comp-grid { grid-template-columns: 1fr; } }
+  
+  .comp-card {
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .comp-card.bad {
+    background: rgba(239, 68, 68, 0.03);
+    border-color: rgba(239, 68, 68, 0.2);
+  }
+  .comp-card.good {
+    background: rgba(16, 185, 129, 0.04);
+    border-color: rgba(16, 185, 129, 0.35);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+  }
+  .comp-card h3 { font-size: 20px; font-family: var(--font-heading); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .timeline-step { display: flex; gap: 14px; margin-bottom: 16px; font-size: 14px; line-height: 1.5; color: var(--text-secondary); }
+  .timeline-step b { color: var(--text-primary); }
+
+  /* Live Reception Panel */
   .reception-panel {
-    max-width: 1240px;
+    max-width: 1260px;
     margin: 40px auto 0;
     padding: 24px;
     background: rgba(255, 255, 255, 0.02);
@@ -307,7 +376,7 @@
     border-radius: 18px;
   }
   .reception-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-  .reception-badge { background: #10B981; color: #030C0B; font-weight: 700; font-size: 11px; padding: 4px 10px; border-radius: 20px; }
+  .reception-badge { background: #10B981; color: #020807; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 20px; }
   .leads-flow { display: flex; flex-direction: column; gap: 10px; }
   .lead-entry {
     background: rgba(255, 255, 255, 0.03);
@@ -320,84 +389,158 @@
     font-size: 13.5px;
   }
   .lead-num { font-family: 'JetBrains Mono', monospace; color: #34D399; font-weight: 600; }
+
+  /* Floating WhatsApp Button for direct contact */
+  .floating-wa {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 99999;
+    background: #25D366;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s;
+  }
+  .floating-wa:hover { transform: scale(1.05); }
 </style>
 </head>
 <body>
 
-  <div class="ambient-glow"></div>
+  <div class="mesh-glow-1"></div>
+  <div class="mesh-glow-2"></div>
 
   <header>
     <div class="brand">
       🦷 DENTAL AI <span>· Recepție Pro</span>
     </div>
     <div class="brand-badge">Sistem 24/7 pentru Clinici Dentare</div>
-    <a href="#test" class="header-cta">Activează 7 Zile Gratuit</a>
+    <a href="https://wa.me/40775613269?text=Buna!%20Am%20testat%20asistentul%20AI%20si%20as%20vrea%20sa%20activez%20perioada%20gratuita%20de%207%20zile%20pentru%20clinica%20mea." target="_blank" class="whatsapp-header-btn">
+      <span>💬 Activează 7 Zile Gratuit</span>
+    </a>
   </header>
 
-  <div class="hero-container" id="test">
-    <!-- Partea Stângă: Prezentare & Valoare -->
+  <div class="hero-container">
     <div>
       <div class="pill-tag">
         <span class="pill-dot"></span> Preluare automată a pacienților 24/7
       </div>
       <h1>Recepționera care nu doarme niciodată la <span class="gradient-text">Clinica Ta</span>.</h1>
       <p class="subtitle">
-        35% dintre pacienți caută tratamente stomatologice seara sau în weekend când recepția este închisă. Asistentul nostru virtual răspunde la prețuri în 3 secunde și capturează numărul de telefon al fiecărui pacient interesat.
+        Peste 35% dintre pacienți caută tratamente stomatologice seara târziu sau în weekend când recepția este închisă. Asistentul nostru virtual răspunde la prețuri în 2 secunde și capturează numărul de telefon al fiecărui pacient interesat.
       </p>
 
       <div class="bento-mini">
         <div class="bento-item">
-          <b>&lt; 3 Secunde</b>
-          <span>Timp mediu de răspuns. Pacientul nu mai pleacă la altă clinică.</span>
+          <b>&lt; 2 Secunde</b>
+          <span>Timp de răspuns. Pacientul nu mai pleacă la altă clinică concurentă.</span>
         </div>
         <div class="bento-item">
-          <b>+15 - 30</b>
-          <span>Programări suplimentare captate lunar în afara orelor de program.</span>
+          <b>+15 - 30 Pacienți</b>
+          <span>Programări noi capturate lunar din căutările din afara orelor de program.</span>
         </div>
         <div class="bento-item">
           <b>Triaj Urgențe</b>
-          <span>Identifică durerile acute și alertează medicul de gardă instant.</span>
+          <span>Identifică durerile acute de dinți și alertează medicul de gardă.</span>
         </div>
         <div class="bento-item">
-          <b>5 Minute Setup</b>
-          <span>O singură linie de cod pe site-ul actual al clinicii (WordPress / Wix).</span>
+          <b>Instalare în 2 Minute</b>
+          <span>O singură linie de cod pe site-ul actual (WordPress, Wix sau custom).</span>
         </div>
       </div>
     </div>
 
-    <!-- Partea Dreaptă: Chatbotul Live în acțiune -->
-    <div class="chat-card">
-      <div class="chat-top">
-        <div class="chat-profile">
-          <div class="chat-avatar-icon">🦷</div>
-          <div>
-            <div style="font-weight: 700; font-size: 15px;">Clinica Dentară Zâmbet</div>
-            <div class="chat-status-active"><span style="width:6px;height:6px;border-radius:50%;background:#34D399;"></span> Online acum · Asistent AI</div>
+    <!-- iPhone Mockup Showcase -->
+    <div class="phone-mockup-wrapper">
+      <div class="iphone-frame">
+        <div class="dynamic-island">
+          <div class="island-cam"></div>
+          <div class="island-sensor"></div>
+        </div>
+
+        <div class="phone-chat-top">
+          <div class="phone-profile">
+            <div class="avatar-circle">🦷</div>
+            <div>
+              <div style="font-weight: 800; font-size: 13.5px; color: #fff;">Clinica Dentară Zâmbet</div>
+              <div class="online-indicator"><span style="width:6px;height:6px;border-radius:50%;background:#34D399;"></span> Online · Asistent AI</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="chat-feed" id="chatFeed">
-        <div class="msg-bubble bot">
-          Bună! Te ajut cu drag cu orice informație despre prețuri, tratamente sau o <b>programare la clinică</b>. Ce te-ar interesa să afli? 🦷
+        <div class="chat-feed" id="chatFeed">
+          <div class="msg-bubble bot">
+            Bună! Te ajut cu drag cu orice informație despre prețuri, tratamente sau o <b>programare la clinică</b>. Ce te-ar interesa să afli? 🦷
+          </div>
+
+          <div class="quick-chips-group" id="chipsBox">
+            <div class="quick-chip-btn" onclick="sendChip('Cât costă un detartraj complet?')">🦷 Detartraj & Airflow?</div>
+            <div class="quick-chip-btn" onclick="sendChip('Vreau o programare săptămâna aceasta')">📅 Găsim un loc liber?</div>
+            <div class="quick-chip-btn" onclick="sendChip('Unde aveți sediul clinicii?')">📍 Unde este clinica?</div>
+            <div class="quick-chip-btn" onclick="sendChip('Mă doare rău o măsea')">🚨 Mă doare o măsea</div>
+          </div>
         </div>
 
-        <div class="quick-chips-group" id="chipsBox">
-          <div class="quick-chip-btn" onclick="sendChip('Cât costă un detartraj complet?')">🦷 Detartraj & Airflow?</div>
-          <div class="quick-chip-btn" onclick="sendChip('Vreau o programare săptămâna aceasta')">📅 Găsim un loc săptămâna asta?</div>
-          <div class="quick-chip-btn" onclick="sendChip('Unde aveți sediul clinicii?')">📍 Unde este clinica?</div>
-          <div class="quick-chip-btn" onclick="sendChip('Mă doare rău o măsea')">🚨 Mă doare o măsea</div>
+        <div class="chat-bottom-input">
+          <input type="text" id="chatInput" placeholder="Întreabă de prețuri sau lasă un număr..." />
+          <button class="send-action-btn" id="sendBtn" onclick="handleSend()">Trimite</button>
         </div>
-      </div>
-
-      <div class="chat-bottom-input">
-        <input type="text" id="chatInput" placeholder="Întreabă de prețuri sau lasă un număr de telefon..." />
-        <button class="send-action-btn" id="sendBtn" onclick="handleSend()">Trimite</button>
       </div>
     </div>
   </div>
 
-  <!-- Panoul Live de Recepție (Dovada că funcționează) -->
+  <!-- Comparison: Inainte vs Dupa -->
+  <div class="comparison-section">
+    <div class="comp-title">Ce se întâmplă când un pacient caută un dentist la ora 21:30?</div>
+    <div class="comp-grid">
+      <div class="comp-card bad">
+        <h3 style="color: #F87171;">❌ Fără Asistent AI (Cum este acum)</h3>
+        <div class="timeline-step">
+          <span>⏰</span>
+          <div><b>21:30:</b> Pacientul are o durere sau vrea o albire și intră pe site-ul clinicii tale.</div>
+        </div>
+        <div class="timeline-step">
+          <span>📵</span>
+          <div><b>21:32:</b> Găsește doar un număr de fix de la recepție. Sună, dar nu răspunde nimeni.</div>
+        </div>
+        <div class="timeline-step">
+          <span>🏃‍♂️</span>
+          <div><b>21:35:</b> Închide pagina și caută alt cabinet pe Google care îi răspunde pe chat.</div>
+        </div>
+        <div style="background: rgba(239, 68, 68, 0.1); padding: 12px; border-radius: 10px; font-size: 13px; color: #FCA5A5; font-weight: 700; margin-top: 10px;">
+          📉 Rezultat: Un pacient pierdut definitiv (valoare pierdută: ~1.200 lei).
+        </div>
+      </div>
+
+      <div class="comp-card good">
+        <h3 style="color: #34D399;">✅ Cu Asistentul Tău AI Integrat</h3>
+        <div class="timeline-step">
+          <span>⚡</span>
+          <div><b>21:30:</b> Pacientul intră pe site și este întâmpinat cald în 2 secunde.</div>
+        </div>
+        <div class="timeline-step">
+          <span>💬</span>
+          <div><b>21:31:</b> Asistentul îi oferă prețul orientativ și îi cere politicos numele și numărul de telefon.</div>
+        </div>
+        <div class="timeline-step">
+          <span>📲</span>
+          <div><b>21:32:</b> Recepția ta primește notificarea instant: <i>„Programare nouă: Ion Popescu, 07xx...”</i>.</div>
+        </div>
+        <div style="background: rgba(16, 185, 129, 0.12); padding: 12px; border-radius: 10px; font-size: 13px; color: #6EE7B7; font-weight: 700; margin-top: 10px;">
+          📈 Rezultat: Pacient asigurat pe scaun fără ca tu să fi ridicat un deget.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panoul Live de Recepție -->
   <div class="reception-panel">
     <div class="reception-header">
       <div style="font-weight: 700; font-size: 16px; display:flex; align-items:center; gap:10px;">
@@ -407,10 +550,14 @@
     </div>
     <div class="leads-flow" id="leadsContainer">
       <div style="color: #64748B; font-size: 13px; text-align: center; padding: 10px;">
-        💡 <b>Testează chiar acum în chat:</b> Scrie <i>„Mă numesc Popescu și vreau o programare, tel: 0722 345 678”</i> pentru a vedea cum este preluat instant aici!
+        💡 <b>Testează chiar acum în iPhone-ul de mai sus:</b> Scrie <i>„Mă numesc Popescu și vreau o programare, tel: 0722 345 678”</i> pentru a vedea cum este preluat instant aici!
       </div>
     </div>
   </div>
+
+  <a href="https://wa.me/40775613269?text=Buna!%20Am%20testat%20asistentul%20AI%20si%20as%20vrea%20sa%20activez%20perioada%20gratuita%20de%207%20zile." target="_blank" class="floating-wa">
+    💬 Vorbește direct cu Denis (WhatsApp)
+  </a>
 
 <script>
 const API_URL = 'http://127.0.0.1:8000';
@@ -447,8 +594,6 @@ function sendChip(text) {
   handleSend();
 }
 
-
-// Client-Side Fallback Engine (Runs 100% offline & fast on GitHub Pages / Mobile)
 function extractPhoneClient(txt) {
   const clean = txt.replace(/[\s\.\-\/]/g, '');
   const m = clean.match(/(?:(?:\+40|0040)?0?7\d{8})/);
@@ -459,76 +604,33 @@ function extractNameClient(txt) {
   const p1 = /(?:mă numesc|ma numesc|numele meu este|sunt)\s+([A-ZĂÎÂȘȚa-zăîâșț\s]{3,30})/i;
   const p2 = /^([A-ZĂÎÂȘȚ][a-zăîâșț]+\s+[A-ZĂÎÂȘȚ][a-zăîâșț]+)/;
   const m = txt.match(p1) || txt.match(p2);
-  return m ? m[1].trim() : 'Client';
+  return m ? m[1].trim() : 'Pacient';
 }
 
-function runClientRuleEngine(msg, cid) {
+function runClientRuleEngine(msg) {
   const text = msg.toLowerCase();
-  
-  if (cid === 'stomatologie') {
-    if (/doare|durere|urgenta|urgență|sange|sânge|umflat|rupt/.test(text)) {
-      return 'Înțeleg perfect, durerile de dinți sunt groaznice! La noi prioritizăm urgențele chiar în aceeași zi. Lasă-mi repede un număr de telefon sau sună-ne direct la 📞 **0722 123 456** ca să te vadă medicul de gardă cât mai repede.';
-    }
-    if (/programare|programez|loc|cand|când|disponibil|ora|ziua/.test(text)) {
-      return 'Cu mare drag te ajutăm cu o programare! În ce zi sau parte a zilei ți-ar fi mai comod (de exemplu dimineața sau după ora 16:00)? Lasă-mi te rog un nume și un număr de telefon, iar colega mea de la recepție te sună scurt să-ți confirme intervalul exact.';
-    }
-    if (/detartraj|curatare|curățare|igienizare|airflow/.test(text)) {
-      return 'Pentru pachetul complet de igienizare (care include detartraj cu ultrasunete, periaj profesional și airflow), tariful este de **250 lei**. Durează aproximativ 40 de minute și dinții se simt super curați după. Ai vrea să te trecem pe listă săptămâna aceasta?';
-    }
-    if (/albire/.test(text)) {
-      return 'Albirea profesională cu lampă LED este **850 lei**. Este tratamentul cel mai eficient, se face într-o singură ședință și vezi rezultatul imediat pe scaun. Vrei să verificăm o zi liberă pentru asta?';
-    }
-    if (/carie|plomba|plombă/.test(text)) {
-      return 'Pentru o carie simplă, plomba fotopolimerizabilă estetică este între **180 și 250 lei**. Lucrăm cu anestezie blândă, deci nu simți absolut nimic. Vrei să te programăm la o consultație?';
-    }
-    if (/pret|preț|cost|cat costa|cât costă|tarife/.test(text)) {
-      return 'Uite câteva dintre cele mai cerute tarife la Clinica Zâmbet:\n\n• **Igienizare completă (detartraj + airflow)**: 250 lei\n• **Tratament carie (plombă estetică)**: 180 - 250 lei\n• **Albire profesională LED**: 850 lei\n• **Consultație + plan tratament**: 100 lei (sau **GRATUITĂ** la tratament)\n\nCe tratament te-ar interesa?';
-    }
-    if (/unde|adresa|locatie|locație/.test(text)) {
-      return 'Clinica noastră este pe **Str. Mihai Eminescu nr. 42 (lângă Parcul Central)**. Avem locuri de parcare aproape. Vrei să stabilim o zi pentru o vizită?';
-    }
-    return 'Bună! Te ajut cu drag cu orice informație despre tarife, medici sau programări la Clinica Zâmbet. Ce ai dori să afli?';
+  if (/doare|durere|urgenta|urgență|sange|sânge|umflat|rupt/.test(text)) {
+    return 'Înțeleg perfect, durerile de dinți sunt groaznice! La noi prioritizăm urgențele chiar în aceeași zi. Lasă-mi repede un număr de telefon sau sună-ne direct la 📞 **0722 123 456** ca să te vadă medicul de gardă cât mai repede.';
   }
-
-  if (cid === 'salon') {
-    if (/programare|programez|loc|cand|când|disponibil|liber/.test(text)) {
-      return 'Super! Ce serviciu ai dori (unghii, tuns, vopsit) și în ce zi ți-ar conveni să vii? Lasă-mi te rog numele tău și un număr de telefon, iar fetele îți dau un mesaj rapid pe WhatsApp cu opțiunile de ore libere.';
-    }
-    if (/unghii|manichiura|manichiură|semi|apex/.test(text)) {
-      return 'Manichiura semipermanentă cu apex este **110 lei**, iar fetele lucrează extrem de curat și rezistă impecabil 3-4 săptămâni fără să sară oja. Vrei să-ți găsim un loc pentru săptămâna asta?';
-    }
-    if (/balayage|vopsit|blond|suvite|șuvițe/.test(text)) {
-      return 'Vopsitul Balayage pornește de la **350 lei** (în funcție de lungimea și desimea părului tău). Fetele sunt specializate pe tehnici moderne și protejează firul de păr. Ai vrea să te programezi?';
-    }
-    if (/pret|preț|cost|cat costa|cât costă|tarife/.test(text)) {
-      return 'Uite lista noastră cu cele mai iubite servicii de la Salon Elegance:\n\n• **Manichiură semi cu apex**: 110 lei\n• **Tuns damă + coafat**: 120 lei\n• **Vopsit Balayage**: de la 350 lei\n• **Tratament păr botox/keratină**: 220 lei\n\nCe ai vrea să-ți facem frumos?';
-    }
-    if (/unde|adresa|locatie|locație/.test(text)) {
-      return 'Salonul nostru este pe **Bulevardul Unirii nr. 18**. Te așteptăm cu o cafea bună! Vrei să căutăm un loc liber?';
-    }
-    return 'Bunăă! ✨ Sunt asistenta fetelor de la Salon Elegance. Spune-mi ce ai în plan (unghii, păr, tratamente) și te ajut cu drag!';
+  if (/programare|programez|loc|cand|când|disponibil|ora|ziua/.test(text)) {
+    return 'Cu mare drag te ajutăm cu o programare! În ce zi sau parte a zilei ți-ar fi mai comod (de exemplu dimineața sau după ora 16:00)? Lasă-mi te rog un nume și un număr de telefon, iar colega mea de la recepție te sună scurt să-ți confirme intervalul exact.';
   }
-
-  if (cid === 'frizerie') {
-    if (/programare|programez|loc|scaun|cand|când|tund|tuns|vin/.test(text)) {
-      return 'Te rezolvăm imediat! În ce zi și cam la ce oră ai vrea să treci pe la noi? Lasă-mi un nume și un număr de telefon, și te trec băieții direct în agendă.';
-    }
-    if (/vip|pachet|barba|barbă/.test(text)) {
-      return 'Pachetul VIP este **90 lei** și include tot: tuns complet (fade sau clasic), barbă conturată la brici, spălat, styling și prosop cald cu uleiuri. Ieși ca nou de la noi. Vrei să-ți rezervăm un scaun?';
-    }
-    if (/tuns|fade|clasic/.test(text)) {
-      return 'Tunsul (fade sau clasic) cu spălat și styling de final este **55 lei**. Când vrei să vii să te aranjăm?';
-    }
-    if (/pret|preț|cost|cat costa|cât costă/.test(text)) {
-      return 'Prețurile la The Gentlemen\'s Club sunt cinstite:\n\n• **Tuns (Fade / Clasic) + Styling**: 55 lei\n• **Pachet VIP (Tuns + Barbă + Prosop cald)**: 90 lei\n• **Contur și aranjat barbă la brici**: 45 lei\n\nTe bagi la un tuns săptămâna asta?';
-    }
-    if (/unde|adresa|locatie|locație/.test(text)) {
-      return 'Ne găsești pe **Str. Victoriei nr. 5**. Ai locuri de parcare chiar în față. Te așteptăm!';
-    }
-    return 'Salut, meștere! 💈 Dacă vrei să afli prețurile sau cauți un scaun liber la tuns/barbă, spune-mi ce ai nevoie și te rezolv!';
+  if (/detartraj|curatare|curățare|igienizare|airflow/.test(text)) {
+    return 'Pentru pachetul complet de igienizare (care include detartraj cu ultrasunete, periaj profesional și airflow), tariful este de **250 lei**. Durează aproximativ 40 de minute și dinții se simt super curați după. Ai vrea să te trecem pe listă săptămâna aceasta?';
   }
-
-  return 'Bună! Cu mare drag te ajut cu orice informație despre tarife sau o programare rapidă.';
+  if (/albire/.test(text)) {
+    return 'Albirea profesională cu lampă LED este **850 lei**. Este tratamentul cel mai eficient, se face într-o singură ședință și vezi rezultatul imediat pe scaun. Vrei să verificăm o zi liberă pentru asta?';
+  }
+  if (/carie|plomba|plombă/.test(text)) {
+    return 'Pentru o carie simplă, plomba fotopolimerizabilă estetică este între **180 și 250 lei**. Lucrăm cu anestezie blândă, deci nu simți absolut nimic. Vrei să te programăm la o consultație?';
+  }
+  if (/pret|preț|cost|cat costa|cât costă|tarife/.test(text)) {
+    return 'Uite câteva dintre cele mai cerute tarife la Clinica Zâmbet:\n\n• **Igienizare completă (detartraj + airflow)**: 250 lei\n• **Tratament carie (plombă estetică)**: 180 - 250 lei\n• **Albire profesională LED**: 850 lei\n• **Consultație + plan tratament**: 100 lei (sau **GRATUITĂ** la tratament)\n\nCe procedură te-ar interesa?';
+  }
+  if (/unde|adresa|locatie|locație/.test(text)) {
+    return 'Clinica noastră este pe **Str. Mihai Eminescu nr. 42 (lângă Parcul Central)**. Avem locuri de parcare aproape. Vrei să stabilim o zi pentru o vizită?';
+  }
+  return 'Bună! Te ajut cu drag cu orice informație despre tarife, medici sau programări la Clinica Zâmbet. Ce ai dori să afli?';
 }
 
 async function handleSend() {
@@ -578,11 +680,9 @@ async function handleSend() {
   } catch(e) {
     await new Promise(r => setTimeout(r, 600));
     if (leadCaptured) {
-      if (clinicId === 'stomatologie') replyText = `Mulțumim din suflet${name ? ', ' + name : ''}! Am notat numărul tău (${phone}). Te sună colega noastră de la recepție în câteva minute să confirmăm ora exactă. Să ai o zi liniștită!`;
-      else if (clinicId === 'salon') replyText = `Super, mulțumim mult${name ? ', ' + name : ''}! Am notat numărul (${phone}). Îți lasă fetele mesaj pe WhatsApp imediat cu orele disponibile. Abia așteptăm să te răsfățăm la salon! ✨`;
-      else replyText = `Top, am notat (${phone})! Te sună băieții scurt să-ți confirme scaunul. Te așteptăm la tuns, meștere! 💈`;
+      replyText = `Mulțumim din suflet${name ? ', ' + name : ''}! Am notat numărul tău (${phone}). Te sună colega noastră de la recepție în câteva minute să confirmăm ora exactă. Să ai o zi liniștită!`;
     } else {
-      replyText = runClientRuleEngine(text, clinicId);
+      replyText = runClientRuleEngine(text);
     }
   }
 
@@ -602,8 +702,6 @@ async function handleSend() {
   input.focus();
 }
 
-
-
 async function loadLeadsStream() {
   let leads = [];
   try {
@@ -615,10 +713,10 @@ async function loadLeadsStream() {
   const localLeads = JSON.parse(localStorage.getItem('saved_leads_' + clinicId) || '[]');
   leads = [...localLeads, ...leads];
 
-  document.getElementById('leadsCounterBadge').textContent = `${leads.length} Solicitări Înregistrate`;
+  document.getElementById('leadsCounterBadge').textContent = `${leads.length} Pacienți Înregistrați`;
   const box = document.getElementById('leadsContainer');
   if(leads.length > 0) {
-    box.innerHTML = leads.slice(0, 10).map(l => `
+    box.innerHTML = leads.slice(0, 8).map(l => `
       <div class="lead-entry">
         <div><b>${l.name}</b> · <span style="color:#94A3B8;">Solicitare programare nouă</span></div>
         <div><span class="lead-num">📞 ${l.phone}</span> <span style="color:#64748B; font-size:11px; margin-left:10px;">${l.timestamp}</span></div>
@@ -627,8 +725,11 @@ async function loadLeadsStream() {
   }
 }
 
-loadLeadsStream();
+document.getElementById('chatInput').addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') handleSend();
+});
 
+loadLeadsStream();
 </script>
 
 </body>
