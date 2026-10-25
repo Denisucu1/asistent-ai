@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recepție AI — Demo Live & Prezentare Interactivă</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg: #F8FAFC;
+    --panel: #FFFFFF;
+    --ink: #0F172A;
+    --teal: #1F6F64;
+    --teal-dark: #14504A;
+    --amber: #F59E0B;
+    --muted: #64748B;
+    --line: #E2E8F0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px 16px;
+  }
+
+  /* Selector Top Bar */
+  .top-selector {
+    display: flex; gap: 10px; margin-bottom: 20px; background: white; padding: 6px; border-radius: 30px;
+    border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .selector-btn {
+    padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+    background: transparent; color: var(--muted); transition: all 0.2s;
+  }
+  .selector-btn.active {
+    background: var(--teal); color: white;
+  }
+
+  .wrap{
+    display:grid; grid-template-columns: 1.05fr 1fr; gap:0;
+    max-width:1040px; width:100%; background:var(--panel);
+    border-radius:24px; overflow:hidden; box-shadow:0 30px 60px -25px rgba(15, 23, 42, 0.15);
+    border:1px solid var(--line);
+  }
+  @media (max-width:840px){ .wrap{grid-template-columns:1fr;} }
+
+  /* LEFT: Pitch Panel */
+  .pitch{
+    background: linear-gradient(165deg, #0F172A, #1E293B 70%);
+    color:#F8FAFC; padding:44px 38px; display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--amber); margin-bottom:14px; display: flex; align-items: center; gap: 8px;
+  }
+  h1{
+    font-family:'Fraunces',serif; font-weight:600; font-size:32px; line-height:1.2; margin:0 0 16px;
+  }
+  .pitch p{ color:#94A3B8; font-size:14.5px; line-height:1.6; margin:0 0 24px; }
+  
+  .features-list { list-style: none; padding: 0; margin: 0 0 24px; }
+  .features-list li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #CBD5E1; margin-bottom: 10px; }
+  .check-icon { color: #34D399; font-weight: bold; }
+
+  .stats{ display:flex; gap:24px; margin-top:auto; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1);}
+  .stat b{ display:block; font-family:'Fraunces',serif; font-size:24px; color: #FFFFFF; }
+  .stat span{ font-size:11px; color:#94A3B8; font-family:'IBM Plex Mono',monospace; }
+
+  .live{ display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:#34D399; margin-top:20px;}
+  .dot{width:8px;height:8px;border-radius:50%; background:#34D399; box-shadow:0 0 0 4px rgba(52,211,153,0.25); animation: pulse-green 2s infinite;}
+
+  @keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52,211,153, 0.5); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 8px rgba(52,211,153, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52,211,153, 0); }
+  }
+
+  /* RIGHT: Live Chat Box */
+  .chat{ display:flex; flex-direction:column; height:100%; min-height:560px; background: #FFFFFF; }
+  .chat-head{
+    padding:18px 22px; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content: space-between;
+  }
+  .chat-head-left { display: flex; align-items: center; gap: 12px; }
+  .avatar{
+    width:40px;height:40px;border-radius:50%; background:var(--teal);
+    display:flex;align-items:center;justify-content:center; font-family:'Fraunces',serif; color:#FFFFFF; font-weight:600;
+  }
+  .chat-head b{font-size:15px; display: block;}
+  .chat-head span{display:block; font-size:11.5px; color:#10B981; font-weight: 500;}
+
+  .messages{
+    flex:1; padding:20px 22px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;
+    background: #F8FAFC;
+  }
+  .msg{ max-width:82%; padding:11px 15px; border-radius:14px; font-size:14px; line-height:1.5; }
+  .msg.bot{ background:#FFFFFF; border:1px solid var(--line); align-self:flex-start; border-bottom-left-radius:4px; box-shadow: 0 1px 2px rgba(0,0,0,0.03);}
+  .msg.user{ background:var(--teal); color:#fff; align-self:flex-end; border-bottom-right-radius:4px;}
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .chip { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 6px 10px; font-size: 12px; cursor: pointer; color: var(--teal); font-weight: 500; }
+  .chip:hover { background: var(--teal); color: white; border-color: var(--teal); }
+
+  .lead-banner {
+    background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; padding: 12px; border-radius: 12px;
+    font-size: 13px; display: flex; align-items: center; gap: 10px;
+  }
+
+  .typing{ align-self:flex-start; display:flex; gap:4px; padding:12px 14px; background: white; border: 1px solid var(--line); border-radius: 14px;}
+  .typing span{ width:6px;height:6px;border-radius:50%; background:var(--muted); animation:bounce 1.2s infinite ease-in-out; }
+  .typing span:nth-child(2){animation-delay:.15s;} .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes bounce{ 0%,60%,100%{transform:translateY(0); opacity:.4;} 30%{transform:translateY(-4px); opacity:1;} }
+
+  .input-row{ display:flex; gap:8px; padding:16px 18px; border-top:1px solid var(--line); background: white; }
+  .input-row input{
+    flex:1; border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+    font-family:'Inter',sans-serif; font-size:14px; outline:none; transition: border-color 0.2s;
+  }
+  .input-row input:focus{ border-color:var(--teal); }
+  .input-row button{
+    background:var(--teal); color:#fff; border:none; border-radius:10px; padding:0 20px;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:14px; cursor:pointer; transition: background 0.2s;
+  }
+  .input-row button:hover{ background:var(--teal-dark); }
+  .input-row button:disabled{ opacity:.5; cursor:default; }
+
+  /* Captured Leads Live Ticker */
+  .leads-dashboard {
+    max-width: 1040px; width: 100%; background: white; border-radius: 16px; border: 1px solid var(--line);
+    margin-top: 24px; padding: 20px 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .leads-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .leads-header h3 { font-size: 15px; margin: 0; display: flex; align-items: center; gap: 8px; }
+  .leads-badge { background: #E0E7FF; color: #4338CA; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+  .leads-list { display: flex; flex-direction: column; gap: 8px; max-height: 140px; overflow-y: auto; }
+  .lead-row { display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font-size: 13px; }
+  .lead-phone { font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- SELECTOR PENTRU DEMO -->
+<div class="top-selector">
+  <button class="selector-btn active" onclick="switchClinic('stomatologie')">🦷 Clinică Dentară</button>
+  <button class="selector-btn" onclick="switchClinic('salon')">💅 Salon Înfrumusețare</button>
+  <button class="selector-btn" onclick="switchClinic('frizerie')">💈 Barbershop</button>
+</div>
+
+<div class="wrap">
+  <!-- PITCH STÂNGA -->
+  <div class="pitch">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> DEMO INTERACTIV PENTRU CLIENȚI</div>
+      <h1 id="pitchTitle">Recepționera care nu doarme niciodată</h1>
+      <p id="pitchDesc">Acest asistent virtual răspunde la întrebări despre prețuri, orar și preia programările pacienților 24/7, fără ca echipa de la recepție să fie întreruptă.</p>
+      
+      <ul class="features-list">
+        <li><span class="check-icon">✓</span> Răspuns instant în &lt;3 secunde (inclusiv la ora 23:00)</li>
+        <li><span class="check-icon">✓</span> Capturează Numele și Numărul de telefon automat</li>
+        <li><span class="check-icon">✓</span> Trimite alertă la recepție pentru confirmare</li>
+        <li><span class="check-icon">✓</span> Se instalează pe orice site cu o singură linie de cod</li>
+      </ul>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>100%</b><span>fără apeluri pierdute</span></div>
+      <div class="stat"><b>24/7</b><span>disponibilitate</span></div>
+      <div class="stat"><b>+30%</b><span>programări lunare</span></div>
+    </div>
+  </div>
+
+  <!-- CHAT DREAPTA -->
+  <div class="chat">
+    <div class="chat-head">
+      <div class="chat-head-left">
+        <div class="avatar" id="chatAvatar">Z</div>
+        <div>
+          <b id="chatName">Clinica Dentară Zâmbet</b>
+          <span>● Activ acum (Răspuns automat)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="messages" id="messages">
+      <div class="msg bot" id="welcomeMsg">
+        Bună ziua! Sunt asistentul virtual al clinicii 🦷 Vă pot ajuta cu lista de prețuri, programul de lucru sau o programare rapidă. Cu ce vă pot ajuta?
+      </div>
+      <div class="chips" id="quickChips">
+        <div class="chip" onclick="quickSend('Cât costă un detartraj?')">🦷 Cât costă un detartraj?</div>
+        <div class="chip" onclick="quickSend('Vreau o programare marți')">📅 Vreau o programare</div>
+        <div class="chip" onclick="quickSend('Unde vă găsesc?')">📍 Unde este sediul?</div>
+      </div>
+    </div>
+
+    <div class="input-row">
+      <input id="userInput" type="text" placeholder="Scrieți o întrebare sau un număr de telefon..." />
+      <button id="sendBtn" onclick="sendMessage()">Trimite</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAPTURED LEADS LIVE DASHBOARD -->
+<div class="leads-dashboard">
+  <div class="leads-header">
+    <h3>📋 Panou Recepție: Pacienți & Numere de Telefon Înregistrate</h3>
+    <span class="leads-badge" id="leadsCount">0 lead-uri</span>
+  </div>
+  <div class="leads-list" id="leadsList">
+    <div style="color: #94A3B8; font-size: 13px; text-align: center; padding: 10px;">
+      Testează chatbotul! Scrie un număr de telefon (ex: <i>0722 000 111</i>) în chat pentru a vedea cum este preluat instant.
+    </div>
+  </div>
+</div>
+
+<script>
+let currentClinic = 'stomatologie';
+let history = [];
+const API_URL = 'http://127.0.0.1:8000';
+
+const clinicMeta = {
+  stomatologie: {
+    title: 'Clinica Dentară Zâmbet',
+    avatar: 'Z',
+    color: '#1F6F64',
+    welcome: 'Bună ziua! Sunt asistentul virtual al Clinicii Dentare Zâmbet 🦷 Vă pot ajuta cu tarife, orar sau o programare.',
+    chips: ['🦷 Cât costă un detartraj?', '📅 Vreau o programare', '🚨 Am o urgență']
+  },
+  salon: {
+    title: 'Salon Elegance & Spa',
+    avatar: 'E',
+    color: '#8B5CF6',
+    welcome: 'Bună! Sunt asistenta virtuală Elegance & Spa 💅 Te pot ajuta cu servicii de coafură, manichiură, vopsit sau o programare.',
+    chips: ['💅 Cât costă o manichiură?', '💇‍♀️ Preț vopsit balayage', '📅 Vreau o programare']
+  },
+  frizerie: {
+    title: "The Gentlemen's Club Barbershop",
+    avatar: 'G',
+    color: '#B45309',
+    welcome: "Salut! Sunt asistentul virtual de la The Gentlemen's Club 💈 Vrei să afli prețurile sau să te programezi la tuns/barbă?",
+    chips: ['✂️ Cât costă pachetul VIP?', '📅 Vreau o programare', '📍 Unde este frizeria?']
+  }
+};
+
+function switchClinic(id) {
+  currentClinic = id;
+  document.querySelectorAll('.selector-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const meta = clinicMeta[id];
+  document.documentElement.style.setProperty('--teal', meta.color);
+  document.getElementById('chatName').textContent = meta.title;
+  document.getElementById('chatAvatar').textContent = meta.avatar;
+  document.getElementById('chatAvatar').style.background = meta.color;
+
+  const msgs = document.getElementById('messages');
+  msgs.innerHTML = `
+    <div class="msg bot">${meta.welcome}</div>
+    <div class="chips" id="quickChips">
+      ${meta.chips.map(c => `<div class="chip" onclick="quickSend('${c}')">${c}</div>`).join('')}
+    </div>
+  `;
+  history = [];
+}
+
+function quickSend(txt) {
+  document.getElementById('userInput').value = txt;
+  sendMessage();
+}
+
+function addMessage(text, sender) {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + sender;
+  div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br/>');
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const container = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'typing';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typingIndicator');
+  if(el) el.remove();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const btn = document.getElementById('sendBtn');
+  const text = input.value.trim();
+  if(!text) return;
+
+  addMessage(text, 'user');
+  history.push({ role: 'user', text: text });
+  input.value = '';
+  btn.disabled = true;
+  showTyping();
+
+  const chips = document.getElementById('quickChips');
+  if(chips) chips.style.display = 'none';
+
+  try {
+    const res = await fetch(`${API_URL}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        clinic_id: currentClinic,
+        history: history
+      })
+    });
+    const data = await res.json();
+    hideTyping();
+    addMessage(data.reply, 'bot');
+    history.push({ role: 'assistant', text: data.reply });
+
+    if(data.lead_captured) {
+      const banner = document.createElement('div');
+      banner.className = 'lead-banner';
+      banner.innerHTML = `🎉 <b>Programare Notată!</b> Numărul (${data.phone_detected}) a fost transmis recepției.`;
+      document.getElementById('messages').appendChild(banner);
+      loadLeads();
+    }
+  } catch(err) {
+    hideTyping();
+    addMessage('Ne pare rău, asistentul este momentan indisponibil. Asigurați-vă că backend-ul rulează la http://127.0.0.1:8000', 'bot');
+    console.error(err);
+  }
+
+  btn.disabled = false;
+  input.focus();
+}
+
+async function loadLeads() {
+  try {
+    const res = await fetch(`${API_URL}/api/leads`);
+    const leads = await res.json();
+    const container = document.getElementById('leadsList');
+    document.getElementById('leadsCount').textContent = `${leads.length} lead-uri`;
+
+    if(leads.length > 0) {
+      container.innerHTML = leads.map(l => `
+        <div class="lead-row">
+          <div><b>${l.name}</b> · <span style="color:#64748B;">${l.clinic_name}</span></div>
+          <div><span class="lead-phone">📞 ${l.phone}</span> <span style="font-size:11px; color:#94A3B8; margin-left:8px;">${l.timestamp}</span></div>
+        </div>
+      `).join('');
+    }
+  } catch(e) {}
+}
+
+document.getElementById('userInput').addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') sendMessage();
+});
+
+// Initial leads check
+setInterval(loadLeads, 4000);
+loadLeads();
+</script>
+
+</body>
+</html>

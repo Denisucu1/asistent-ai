@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recepție AI Barbershop — Asistent Virtual 24/7 pentru Frizerii & Barbershops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0A0807;
+    --card-bg: rgba(26, 21, 18, 0.75);
+    --card-border: rgba(217, 119, 6, 0.28);
+    --accent-gold: #F59E0B;
+    --accent-amber: #D97706;
+    --text-primary: #FEF3C7;
+    --text-secondary: #D4B996;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: 60px;
+  }
+
+  .ambient-glow {
+    position: fixed;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.18) 0%, rgba(180, 83, 9, 0.06) 50%, transparent 80%);
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 8%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+  }
+  .brand {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -0.01em;
+  }
+  .brand-badge {
+    background: rgba(245, 158, 11, 0.15);
+    color: #FBBF24;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+  .header-cta {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #0A0807;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 13.5px;
+    text-decoration: none;
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+    transition: all 0.2s;
+  }
+  .header-cta:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(245, 158, 11, 0.55); }
+
+  .hero-container {
+    position: relative;
+    z-index: 10;
+    max-width: 1240px;
+    margin: 40px auto 0;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 960px) {
+    .hero-container { grid-template-columns: 1fr; margin-top: 20px; }
+  }
+
+  .pill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    font-size: 12px;
+    font-weight: 700;
+    color: #FBBF24;
+    margin-bottom: 20px;
+  }
+  .pill-dot { width: 7px; height: 7px; border-radius: 50%; background: #F59E0B; box-shadow: 0 0 10px #F59E0B; }
+  
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #FFFFFF 30%, #F59E0B 70%, #FBBF24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.subtitle {
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+  }
+
+  .bento-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .bento-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 18px;
+    backdrop-filter: blur(10px);
+  }
+  .bento-item b { display: block; font-size: 20px; font-family: var(--font-heading); color: #F59E0B; margin-bottom: 4px; }
+  .bento-item span { font-size: 12.5px; color: var(--text-secondary); line-height: 1.4; display: block; }
+
+  .chat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 158, 11, 0.12);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    height: 580px;
+    overflow: hidden;
+    position: relative;
+  }
+  .chat-top {
+    padding: 18px 22px;
+    background: rgba(26, 21, 18, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chat-profile { display: flex; align-items: center; gap: 12px; }
+  .chat-avatar-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F59E0B, #B45309);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+  }
+  .chat-status-active { font-size: 12px; color: #FBBF24; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+
+  .chat-feed {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .msg-bubble {
+    max-width: 82%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .msg-bubble.bot {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+    color: #FEF3C7;
+  }
+  .msg-bubble.user {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #0A0807;
+    font-weight: 600;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  }
+
+  .quick-chips-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .quick-chip-btn {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #FDE68A;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .quick-chip-btn:hover {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #0A0807;
+    transform: translateY(-2px);
+  }
+
+  .typing-ind {
+    display: flex; gap: 5px; padding: 12px 16px; background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; align-self: flex-start;
+  }
+  .typing-ind span { width: 6px; height: 6px; border-radius: 50%; background: #F59E0B; animation: bounce 1.2s infinite ease-in-out; }
+  .typing-ind span:nth-child(2) { animation-delay: 0.15s; }
+  .typing-ind span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+
+  .lead-toast {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.15));
+    border: 1px solid #F59E0B;
+    color: #FEF3C7;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+  }
+
+  .chat-bottom-input {
+    padding: 16px 20px;
+    background: rgba(26, 21, 18, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 10px;
+  }
+  .chat-bottom-input input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 13px 16px;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .chat-bottom-input input:focus {
+    border-color: #F59E0B;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+  }
+  .send-action-btn {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #0A0807;
+    border: none;
+    border-radius: 12px;
+    padding: 0 22px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .send-action-btn:hover { transform: scale(1.02); opacity: 0.95; }
+
+  .reception-panel {
+    max-width: 1240px;
+    margin: 40px auto 0;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+  }
+  .reception-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .reception-badge { background: #F59E0B; color: #0A0807; font-weight: 800; font-size: 11px; padding: 4px 10px; border-radius: 20px; }
+  .leads-flow { display: flex; flex-direction: column; gap: 10px; }
+  .lead-entry {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 12px 18px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13.5px;
+  }
+  .lead-num { font-family: 'JetBrains Mono', monospace; color: #FBBF24; font-weight: 600; }
+</style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <header>
+    <div class="brand">
+      💈 BARBER AI <span>· Pro Reception</span>
+    </div>
+    <div class="brand-badge">Sistem 24/7 pentru Barbershops & Frizerii</div>
+    <a href="#test" class="header-cta">Activează 7 Zile Gratuit</a>
+  </header>
+
+  <div class="hero-container" id="test">
+    <div>
+      <div class="pill-tag">
+        <span class="pill-dot"></span> Preluare automată a clienților 24/7
+      </div>
+      <h1>Nu mai lăsa foarfeca din mână ca să <span class="gradient-text">Răspunzi la Telefon</span>.</h1>
+      <p class="subtitle">
+        Clienții sună exact când ești în mijlocul unui tuns sau după ora 21:00 când frizeria e închisă. Asistentul nostru virtual răspunde la prețuri și ia numărul de telefon al clientului în 10 secunde.
+      </p>
+
+      <div class="bento-mini">
+        <div class="bento-item">
+          <b>Zero Întreruperi</b>
+          <span>Frizerii își fac treaba liniștiți fără să sune telefonul încontinuu.</span>
+        </div>
+        <div class="bento-item">
+          <b>+30 - 50</b>
+          <span>Programări noi salvate lunar de la băieți care scriu seara.</span>
+        </div>
+        <div class="bento-item">
+          <b>Prețuri & Pachete VIP</b>
+          <span>Explică tarifele de Fade, Aranjat barbă, Prosop cald și Spălat.</span>
+        </div>
+        <div class="bento-item">
+          <b>Gata în 5 Minute</b>
+          <span>Se leagă direct pe site sau ca buton de chat pe Instagram.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-card">
+      <div class="chat-top">
+        <div class="chat-profile">
+          <div class="chat-avatar-icon">💈</div>
+          <div>
+            <div style="font-weight: 700; font-size: 15px;">The Gentlemen's Club Barbershop</div>
+            <div class="chat-status-active"><span style="width:6px;height:6px;border-radius:50%;background:#F59E0B;"></span> Activ acum · Asistent AI</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-feed" id="chatFeed">
+        <div class="msg-bubble bot">
+          Salut, meștere! 💈 Dacă vrei să afli ce prețuri avem sau cauți un scaun liber la <b>tuns sau barbă</b>, spune-mi ce ai nevoie.
+        </div>
+
+        <div class="quick-chips-group" id="chipsBox">
+          <div class="quick-chip-btn" onclick="sendChip('Cât costă Pachetul VIP (Tuns + Barbă)?')">✂️ Cât e Pachetul VIP?</div>
+          <div class="quick-chip-btn" onclick="sendChip('Vreau o programare sâmbătă la prânz')">💈 Un scaun liber sâmbătă?</div>
+          <div class="quick-chip-btn" onclick="sendChip('Unde aveți frizeria?')">📍 Unde vă găsesc?</div>
+        </div>
+      </div>
+
+      <div class="chat-bottom-input">
+        <input type="text" id="chatInput" placeholder="Întreabă de prețuri sau lasă un număr de telefon..." />
+        <button class="send-action-btn" id="sendBtn" onclick="handleSend()">Trimite</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reception-panel">
+    <div class="reception-header">
+      <div style="font-weight: 700; font-size: 16px; display:flex; align-items:center; gap:10px;">
+        📋 Panoul Frizeriei: Numere de telefon preluate automat
+      </div>
+      <span class="reception-badge" id="leadsCounterBadge">0 Clienți Înregistrați</span>
+    </div>
+    <div class="leads-flow" id="leadsContainer">
+      <div style="color: #64748B; font-size: 13px; text-align: center; padding: 10px;">
+        💡 <b>Testează chiar acum în chat:</b> Scrie <i>„Vreau un fade sâmbătă, mă numesc Alex, tel: 0744 111 222”</i> pentru a vedea notificarea!
+      </div>
+    </div>
+  </div>
+
+<script>
+const API_URL = 'http://127.0.0.1:8000';
+const clinicId = 'frizerie';
+let chatHistory = [];
+
+function appendMsg(text, role) {
+  const feed = document.getElementById('chatFeed');
+  const div = document.createElement('div');
+  div.className = 'msg-bubble ' + role;
+  div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br/>');
+  feed.appendChild(div);
+  feed.scrollTop = feed.scrollHeight;
+  return div;
+}
+
+function showTypingAnim() {
+  const feed = document.getElementById('chatFeed');
+  const div = document.createElement('div');
+  div.className = 'typing-ind';
+  div.id = 'typingBubble';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  feed.appendChild(div);
+  feed.scrollTop = feed.scrollHeight;
+}
+
+function hideTypingAnim() {
+  const el = document.getElementById('typingBubble');
+  if(el) el.remove();
+}
+
+function sendChip(text) {
+  document.getElementById('chatInput').value = text;
+  handleSend();
+}
+
+
+// Client-Side Fallback Engine (Runs 100% offline & fast on GitHub Pages / Mobile)
+function extractPhoneClient(txt) {
+  const clean = txt.replace(/[\s\.\-\/]/g, '');
+  const m = clean.match(/(?:(?:\+40|0040)?0?7\d{8})/);
+  return m ? m[0] : null;
+}
+
+function extractNameClient(txt) {
+  const p1 = /(?:mă numesc|ma numesc|numele meu este|sunt)\s+([A-ZĂÎÂȘȚa-zăîâșț\s]{3,30})/i;
+  const p2 = /^([A-ZĂÎÂȘȚ][a-zăîâșț]+\s+[A-ZĂÎÂȘȚ][a-zăîâșț]+)/;
+  const m = txt.match(p1) || txt.match(p2);
+  return m ? m[1].trim() : 'Client';
+}
+
+function runClientRuleEngine(msg, cid) {
+  const text = msg.toLowerCase();
+  
+  if (cid === 'stomatologie') {
+    if (/doare|durere|urgenta|urgență|sange|sânge|umflat|rupt/.test(text)) {
+      return 'Înțeleg perfect, durerile de dinți sunt groaznice! La noi prioritizăm urgențele chiar în aceeași zi. Lasă-mi repede un număr de telefon sau sună-ne direct la 📞 **0722 123 456** ca să te vadă medicul de gardă cât mai repede.';
+    }
+    if (/programare|programez|loc|cand|când|disponibil|ora|ziua/.test(text)) {
+      return 'Cu mare drag te ajutăm cu o programare! În ce zi sau parte a zilei ți-ar fi mai comod (de exemplu dimineața sau după ora 16:00)? Lasă-mi te rog un nume și un număr de telefon, iar colega mea de la recepție te sună scurt să-ți confirme intervalul exact.';
+    }
+    if (/detartraj|curatare|curățare|igienizare|airflow/.test(text)) {
+      return 'Pentru pachetul complet de igienizare (care include detartraj cu ultrasunete, periaj profesional și airflow), tariful este de **250 lei**. Durează aproximativ 40 de minute și dinții se simt super curați după. Ai vrea să te trecem pe listă săptămâna aceasta?';
+    }
+    if (/albire/.test(text)) {
+      return 'Albirea profesională cu lampă LED este **850 lei**. Este tratamentul cel mai eficient, se face într-o singură ședință și vezi rezultatul imediat pe scaun. Vrei să verificăm o zi liberă pentru asta?';
+    }
+    if (/carie|plomba|plombă/.test(text)) {
+      return 'Pentru o carie simplă, plomba fotopolimerizabilă estetică este între **180 și 250 lei**. Lucrăm cu anestezie blândă, deci nu simți absolut nimic. Vrei să te programăm la o consultație?';
+    }
+    if (/pret|preț|cost|cat costa|cât costă|tarife/.test(text)) {
+      return 'Uite câteva dintre cele mai cerute tarife la Clinica Zâmbet:\n\n• **Igienizare completă (detartraj + airflow)**: 250 lei\n• **Tratament carie (plombă estetică)**: 180 - 250 lei\n• **Albire profesională LED**: 850 lei\n• **Consultație + plan tratament**: 100 lei (sau **GRATUITĂ** la tratament)\n\nCe tratament te-ar interesa?';
+    }
+    if (/unde|adresa|locatie|locație/.test(text)) {
+      return 'Clinica noastră este pe **Str. Mihai Eminescu nr. 42 (lângă Parcul Central)**. Avem locuri de parcare aproape. Vrei să stabilim o zi pentru o vizită?';
+    }
+    return 'Bună! Te ajut cu drag cu orice informație despre tarife, medici sau programări la Clinica Zâmbet. Ce ai dori să afli?';
+  }
+
+  if (cid === 'salon') {
+    if (/programare|programez|loc|cand|când|disponibil|liber/.test(text)) {
+      return 'Super! Ce serviciu ai dori (unghii, tuns, vopsit) și în ce zi ți-ar conveni să vii? Lasă-mi te rog numele tău și un număr de telefon, iar fetele îți dau un mesaj rapid pe WhatsApp cu opțiunile de ore libere.';
+    }
+    if (/unghii|manichiura|manichiură|semi|apex/.test(text)) {
+      return 'Manichiura semipermanentă cu apex este **110 lei**, iar fetele lucrează extrem de curat și rezistă impecabil 3-4 săptămâni fără să sară oja. Vrei să-ți găsim un loc pentru săptămâna asta?';
+    }
+    if (/balayage|vopsit|blond|suvite|șuvițe/.test(text)) {
+      return 'Vopsitul Balayage pornește de la **350 lei** (în funcție de lungimea și desimea părului tău). Fetele sunt specializate pe tehnici moderne și protejează firul de păr. Ai vrea să te programezi?';
+    }
+    if (/pret|preț|cost|cat costa|cât costă|tarife/.test(text)) {
+      return 'Uite lista noastră cu cele mai iubite servicii de la Salon Elegance:\n\n• **Manichiură semi cu apex**: 110 lei\n• **Tuns damă + coafat**: 120 lei\n• **Vopsit Balayage**: de la 350 lei\n• **Tratament păr botox/keratină**: 220 lei\n\nCe ai vrea să-ți facem frumos?';
+    }
+    if (/unde|adresa|locatie|locație/.test(text)) {
+      return 'Salonul nostru este pe **Bulevardul Unirii nr. 18**. Te așteptăm cu o cafea bună! Vrei să căutăm un loc liber?';
+    }
+    return 'Bunăă! ✨ Sunt asistenta fetelor de la Salon Elegance. Spune-mi ce ai în plan (unghii, păr, tratamente) și te ajut cu drag!';
+  }
+
+  if (cid === 'frizerie') {
+    if (/programare|programez|loc|scaun|cand|când|tund|tuns|vin/.test(text)) {
+      return 'Te rezolvăm imediat! În ce zi și cam la ce oră ai vrea să treci pe la noi? Lasă-mi un nume și un număr de telefon, și te trec băieții direct în agendă.';
+    }
+    if (/vip|pachet|barba|barbă/.test(text)) {
+      return 'Pachetul VIP este **90 lei** și include tot: tuns complet (fade sau clasic), barbă conturată la brici, spălat, styling și prosop cald cu uleiuri. Ieși ca nou de la noi. Vrei să-ți rezervăm un scaun?';
+    }
+    if (/tuns|fade|clasic/.test(text)) {
+      return 'Tunsul (fade sau clasic) cu spălat și styling de final este **55 lei**. Când vrei să vii să te aranjăm?';
+    }
+    if (/pret|preț|cost|cat costa|cât costă/.test(text)) {
+      return 'Prețurile la The Gentlemen\'s Club sunt cinstite:\n\n• **Tuns (Fade / Clasic) + Styling**: 55 lei\n• **Pachet VIP (Tuns + Barbă + Prosop cald)**: 90 lei\n• **Contur și aranjat barbă la brici**: 45 lei\n\nTe bagi la un tuns săptămâna asta?';
+    }
+    if (/unde|adresa|locatie|locație/.test(text)) {
+      return 'Ne găsești pe **Str. Victoriei nr. 5**. Ai locuri de parcare chiar în față. Te așteptăm!';
+    }
+    return 'Salut, meștere! 💈 Dacă vrei să afli prețurile sau cauți un scaun liber la tuns/barbă, spune-mi ce ai nevoie și te rezolv!';
+  }
+
+  return 'Bună! Cu mare drag te ajut cu orice informație despre tarife sau o programare rapidă.';
+}
+
+async function handleSend() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+
+  appendMsg(text, 'user');
+  chatHistory.push({ role: 'user', text: text });
+  input.value = '';
+  document.getElementById('sendBtn').disabled = true;
+  showTypingAnim();
+
+  const chips = document.getElementById('chipsBox');
+  if(chips) chips.style.display = 'none';
+
+  let replyText = '';
+  let phone = extractPhoneClient(text);
+  let name = extractNameClient(text);
+  let leadCaptured = false;
+
+  if (phone) {
+    leadCaptured = true;
+    const leads = JSON.parse(localStorage.getItem('saved_leads_' + clinicId) || '[]');
+    leads.unshift({
+      name: name,
+      phone: phone,
+      timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+      clinic_id: clinicId
+    });
+    localStorage.setItem('saved_leads_' + clinicId, JSON.stringify(leads));
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
+    const res = await fetch(`${API_URL}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, clinic_id: clinicId, history: chatHistory }),
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    const data = await res.json();
+    replyText = data.reply;
+    if (data.lead_captured) { leadCaptured = true; phone = data.phone_detected; }
+  } catch(e) {
+    await new Promise(r => setTimeout(r, 600));
+    if (leadCaptured) {
+      if (clinicId === 'stomatologie') replyText = `Mulțumim din suflet${name ? ', ' + name : ''}! Am notat numărul tău (${phone}). Te sună colega noastră de la recepție în câteva minute să confirmăm ora exactă. Să ai o zi liniștită!`;
+      else if (clinicId === 'salon') replyText = `Super, mulțumim mult${name ? ', ' + name : ''}! Am notat numărul (${phone}). Îți lasă fetele mesaj pe WhatsApp imediat cu orele disponibile. Abia așteptăm să te răsfățăm la salon! ✨`;
+      else replyText = `Top, am notat (${phone})! Te sună băieții scurt să-ți confirme scaunul. Te așteptăm la tuns, meștere! 💈`;
+    } else {
+      replyText = runClientRuleEngine(text, clinicId);
+    }
+  }
+
+  hideTypingAnim();
+  appendMsg(replyText, 'bot');
+  chatHistory.push({ role: 'assistant', text: replyText });
+
+  if(leadCaptured) {
+    const toast = document.createElement('div');
+    toast.className = 'lead-toast';
+    toast.innerHTML = `✅ <b>Programare Notată!</b> Numărul <b>${phone}</b> a fost trimis recepției pentru confirmare.`;
+    document.getElementById('chatFeed').appendChild(toast);
+  }
+
+  loadLeadsStream();
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+
+
+
+async function loadLeadsStream() {
+  let leads = [];
+  try {
+    const res = await fetch(`${API_URL}/api/leads`);
+    const serverLeads = await res.json();
+    leads = serverLeads.filter(l => l.clinic_id === clinicId);
+  } catch(e) {}
+
+  const localLeads = JSON.parse(localStorage.getItem('saved_leads_' + clinicId) || '[]');
+  leads = [...localLeads, ...leads];
+
+  document.getElementById('leadsCounterBadge').textContent = `${leads.length} Solicitări Înregistrate`;
+  const box = document.getElementById('leadsContainer');
+  if(leads.length > 0) {
+    box.innerHTML = leads.slice(0, 10).map(l => `
+      <div class="lead-entry">
+        <div><b>${l.name}</b> · <span style="color:#94A3B8;">Solicitare programare nouă</span></div>
+        <div><span class="lead-num">📞 ${l.phone}</span> <span style="color:#64748B; font-size:11px; margin-left:10px;">${l.timestamp}</span></div>
+      </div>
+    `).join('');
+  }
+}
+
+loadLeadsStream();
+
+</script>
+
+</body>
+</html>
